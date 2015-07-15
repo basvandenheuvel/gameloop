@@ -4,7 +4,6 @@
 class Game
 {
 private:
-	bool running;
 	GameStateManager* gsm;
 public:
 	Game();

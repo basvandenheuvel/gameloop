@@ -1,12 +1,14 @@
 #include "Game.h"
+#include "header_loader.h"
 #include <Windows.h>
 #include <iostream>
 
 
 Game::Game()
 {
-	this->gsm = new GameStateManager;
-	this->running = true;
+	this->gsm = new GameStateManager();
+	this->gsm->init("Bermuda", SCREENWIDTH, SCREENHEIGHT, FULLSCREEN);
+
 	this->loop();
 }
 
@@ -27,7 +29,7 @@ void Game::loop()
 	float lastFpsTime = 0;
 	int fps = 0;
 	int gameState = 0;
-	while (this->running) {
+	while (this->gsm->getRunning()) {
 		//Take current Time
 		QueryPerformanceCounter(&currentTime);
 
@@ -57,7 +59,9 @@ void Game::loop()
 		//Handle vents
 		//Update stuff
 		//Draw stuff
+		this->gsm->handleEvents();
 		this->gsm->update(delta);
+		this->gsm->draw();
 
 		//Get time after loop
 		QueryPerformanceCounter(&afterLoopTime);
