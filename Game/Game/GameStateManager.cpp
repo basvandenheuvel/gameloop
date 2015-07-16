@@ -18,6 +18,7 @@ void GameStateManager::init(const char* title, int width, int height, bool fulls
 	this->changeGameState(MenuState::Instance());
 
 	this->running = true;
+	this->showFps = false;
 
 	//this->rectBackground.x = 100;
 	//this->rectBackground.y = 100;
@@ -43,6 +44,7 @@ void GameStateManager::handleEvents()
 			{
 			case SDLK_TAB:
 				//TODO: toggle show fps
+				this->showFps = !this->showFps;
 				break;
 			default:
 				this->states.back()->handleEvents(mainEvent);
@@ -68,12 +70,19 @@ void GameStateManager::draw()
 {
 	//Clear screen
 	this->sdlInitializer->clearScreen();
-
+	
 	//TEMP
 	//this->sdlInitializer->drawTexture(this->textBackground, &this->rectBackground, NULL);
 
 	//Draw current state
 	this->states.back()->draw();
+
+
+	//Draw fps if requested
+	if (this->showFps)
+	{
+		this->sdlInitializer->drawText(std::string("FPS: " + std::to_string(this->fps)), 5, 5, 60, 26, 18, 128, 128, 128);
+	}
 
 	//Draw screen
 	this->sdlInitializer->drawScreen();
@@ -128,6 +137,17 @@ bool GameStateManager::getRunning()
 SDLInitializer* GameStateManager::getSDLI()
 {
 	return this->sdlInitializer;
+}
+
+
+void GameStateManager::setFps(int fps)
+{
+	this->fps = fps;
+}
+
+int GameStateManager::getFps()
+{
+	return this->fps;
 }
 
 

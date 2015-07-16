@@ -48,7 +48,7 @@ void Game::loop()
 
 		//If lastFpsTime > 1000 ms, set FPS to 0 and start re-calculating
 		if (lastFpsTime >= 1000) {
-			std::cout << fps << std::endl;
+			this->gsm->setFps(fps);
 			lastFpsTime = 0;
 			fps = 0;
 		}

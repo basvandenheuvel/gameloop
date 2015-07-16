@@ -8,7 +8,9 @@ class IGameState;
 class GameStateManager
 {
 private:
+	int fps;
 	bool running;
+	bool showFps;
 	std::vector<IGameState*> states;
 
 	SDLInitializer* sdlInitializer;
@@ -32,5 +34,8 @@ public:
 
 	bool getRunning();
 	SDLInitializer* getSDLI();
+
+	void setFps(int fps);
+	int getFps();
 };
 
